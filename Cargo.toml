@@ -5,3 +5,5 @@ edition = "2024"
 
 [dependencies]
 wasmer = "5.0.4"
+tracing-subscriber = { version = "0.3.17", features = ["tracing-log", "env-filter"]}
+tracing = {version = "0.1.41"}

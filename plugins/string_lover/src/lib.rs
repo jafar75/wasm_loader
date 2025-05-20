@@ -27,7 +27,7 @@ pub extern "C" fn process(input_ptr: *const u8, input_len: usize) -> u64 {
     let input = unsafe { slice::from_raw_parts(input_ptr, input_len) };
     let input_str = match str::from_utf8(input) {
         Ok(s) => s,
-        Err(_) => return 0, // signal error
+        Err(_) => return 0, // could not read the input data
     };
 
     // Reverse string
@@ -38,6 +38,6 @@ pub extern "C" fn process(input_ptr: *const u8, input_len: usize) -> u64 {
     // Leak memory so pointer remains valid
     let ptr = Box::leak(boxed).as_mut_ptr();
 
-    // Return pointer and length encoded in a u64: high 32 bits = ptr, low 32 bits = len
+    // Return pointer and length encoded in u64: high 32 bits = ptr, low 32 bits = len
     ((ptr as u64) << 32) | len as u64
 }
